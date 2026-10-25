@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Lane — Designer portfolio | Demo by Core Dynamics</title>
+<meta name="description" content="Sample portfolio website built by Core Dynamics. Fictional designer, sample projects.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e11; --bg2: #16161b; --card: #1a1a20; --ink: #f3efe7; --soft: #a7a39a; --line: #2a2a32;
+    --coral: #ff6a4d; --lime: #d6ff5c; --sky: #7ec8ff;
+    --serif: "Instrument Serif", Georgia, serif; --sans: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; } svg { display: block; }
+  .wrap { width: min(1180px, 100% - 44px); margin-inline: auto; }
+  section[id] { scroll-margin-top: 84px; }
+  :focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+  ::selection { background: var(--coral); color: #fff; }
+
+  .glow { position: fixed; width: 520px; height: 520px; left: 0; top: 0; pointer-events: none; z-index: 0; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,106,77,.16), transparent 62%); transform: translate(-50%, -50%); transition: opacity .3s; opacity: 0; }
+  body.has-glow .glow { opacity: 1; }
+  main, header, footer, .ribbon { position: relative; z-index: 1; }
+
+  .ribbon { background: var(--lime); color: #12140a; font-size: .8rem; font-weight: 600; text-align: center; padding: 8px 14px; }
+  .ribbon a { text-underline-offset: 3px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: rgba(14,14,17,.8); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; gap: 16px; }
+  .logo { font-family: var(--serif); font-size: 1.7rem; text-decoration: none; letter-spacing: .2px; }
+  .logo i { color: var(--coral); }
+  nav ul { display: flex; gap: 6px; list-style: none; align-items: center; }
+  nav ul a { text-decoration: none; color: var(--soft); padding: 8px 14px; border-radius: 999px; font-size: .94rem; font-weight: 500; transition: .2s; }
+  nav ul a:hover { color: var(--ink); background: var(--card); }
+  nav ul a.cta { background: var(--ink); color: var(--bg); font-weight: 600; }
+  nav ul a.cta:hover { background: var(--lime); color: #12140a; }
+  .menu-btn { display: none; background: none; border: 1px solid var(--line); border-radius: 12px; width: 44px; height: 44px; cursor: pointer; }
+  .menu-btn span { display: block; width: 20px; height: 2px; background: var(--ink); margin: 5px auto; }
+
+  /* Hero */
+  .hero { padding: 96px 0 70px; }
+  .tag { display: inline-flex; gap: 10px; align-items: center; border: 1px solid var(--line); padding: 7px 16px; border-radius: 999px; color: var(--soft); font-size: .85rem; margin-bottom: 28px; }
+  .tag b { width: 9px; height: 9px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(214,255,92,.18); animation: pulse 2.4s infinite; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(214,255,92,0); } }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 9.4vw, 8.2rem); line-height: .96; letter-spacing: -1.5px; max-width: 14ch; }
+  h1 em { color: var(--coral); }
+  h1 .strike { display: inline-block; position: relative; }
+  .sub { color: var(--soft); font-size: 1.2rem; max-width: 46ch; margin: 32px 0 38px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; font: inherit; font-weight: 600; padding: 15px 28px; border-radius: 999px; text-decoration: none; border: 1.5px solid var(--ink); cursor: pointer; transition: .25s; }
+  .btn-solid { background: var(--coral); border-color: var(--coral); color: #1a0a06; }
+  .btn-solid:hover { background: var(--lime); border-color: var(--lime); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); transform: translateY(-2px); }
+  .arrow { transition: transform .25s; } .btn:hover .arrow { transform: translateX(4px); }
+
+  .marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 18px 0; margin-top: 46px; }
+  .track { display: flex; gap: 48px; width: max-content; animation: slide 30s linear infinite; font-family: var(--serif); font-size: 2rem; color: var(--soft); white-space: nowrap; }
+  .track span::after { content: "✦"; color: var(--coral); margin-left: 48px; font-size: 1.1rem; vertical-align: middle; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  section { padding: 96px 0; }
+  .label { color: var(--coral); font-weight: 600; font-size: .82rem; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5.4vw, 4.2rem); line-height: 1; letter-spacing: -.5px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
+  .head p { color: var(--soft); max-width: 40ch; }
+
+  /* Work */
+  .work { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; }
+  .proj { grid-column: span 6; background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 14px; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .35s, border-color .35s; }
+  .proj:nth-child(1), .proj:nth-child(4) { grid-column: span 7; } .proj:nth-child(2), .proj:nth-child(3) { grid-column: span 5; }
+  .proj:nth-child(3) { grid-column: span 5; } .proj:nth-child(4) { grid-column: span 7; }
+  .proj:hover { transform: translateY(-8px); border-color: #45454f; }
+  .cover { aspect-ratio: 16 / 11; border-radius: 18px; overflow: hidden; position: relative; }
+  .cover svg { width: 100%; height: 100%; transition: transform .6s; }
+  .proj:hover .cover svg { transform: scale(1.06); }
+  .meta { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 20px 10px 10px; }
+  .meta h3 { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1.05; }
+  .meta small { color: var(--soft); display: block; font-size: .88rem; margin-top: 4px; }
+  .go { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; transition: .25s; }
+  .go svg { width: 20px; height: 20px; stroke: var(--ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .proj:hover .go { background: var(--lime); border-color: var(--lime); } .proj:hover .go svg { stroke: #12140a; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .about p { color: var(--soft); font-size: 1.12rem; margin-bottom: 18px; }
+  .about p b { color: var(--ink); font-weight: 500; }
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .skills span { border: 1px solid var(--line); background: var(--bg2); padding: 9px 18px; border-radius: 999px; font-size: .92rem; }
+  .list { border-top: 1px solid var(--line); }
+  .list div { display: flex; justify-content: space-between; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); transition: padding .3s; }
+  .list div:hover { padding-left: 14px; }
+  .list b { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; } .list span { color: var(--soft); align-self: center; text-align: right; font-size: .94rem; }
+
+  /* Contact */
+  .big { background: var(--coral); color: #1a0a06; border-radius: 34px; padding: clamp(36px, 7vw, 84px); position: relative; overflow: hidden; }
+  .big h2 { font-size: clamp(2.6rem, 7.6vw, 6.4rem); max-width: 12ch; }
+  .big p { margin: 22px 0 34px; font-size: 1.15rem; max-width: 44ch; }
+  .big .btn { background: #1a0a06; color: var(--ink); border-color: #1a0a06; }
+  .big .btn:hover { background: var(--lime); color: #12140a; border-color: var(--lime); }
+  .big .sticker { position: absolute; right: -40px; top: -40px; width: 220px; height: 220px; border-radius: 50%; border: 2px dashed rgba(26,10,6,.35); animation: spin 26s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .socials { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .socials a { text-decoration: none; border: 1.5px solid rgba(26,10,6,.55); padding: 9px 18px; border-radius: 999px; font-weight: 600; font-size: .92rem; transition: .2s; }
+  .socials a:hover { background: #1a0a06; color: var(--ink); }
+
+  footer { padding: 36px 0 52px; color: var(--soft); font-size: .9rem; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line); padding-top: 26px; }
+  footer a { color: var(--ink); }
+
+  /* Modal */
+  dialog { border: 1px solid #3a3a45; border-radius: 28px; background: var(--card); color: var(--ink); width: min(820px, calc(100% - 28px)); padding: 0; max-height: 90vh; overflow: auto; margin: auto; }
+  dialog::backdrop { background: rgba(5,5,8,.78); backdrop-filter: blur(6px); }
+  .m-cover { aspect-ratio: 16 / 8; } .m-cover svg { width: 100%; height: 100%; }
+  .m-body { padding: 30px 34px 36px; }
+  .m-body h3 { font-family: var(--serif); font-weight: 400; font-size: 2.6rem; line-height: 1; margin-bottom: 10px; }
+  .m-body p { color: var(--soft); margin-bottom: 16px; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0; }
+  .facts div { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+  .facts small { color: var(--soft); display: block; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; } .facts b { font-weight: 500; }
+  .close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(14,14,17,.8); color: var(--ink); font-size: 1.4rem; cursor: pointer; z-index: 2; }
+  .close:hover { background: var(--lime); color: #12140a; }
+  dialog .note { font-size: .84rem; color: var(--soft); border-top: 1px solid var(--line); padding-top: 14px; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .about { grid-template-columns: 1fr; gap: 36px; }
+    .proj, .proj:nth-child(n) { grid-column: span 12; }
+    .facts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    nav ul { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; background: var(--bg); padding: 12px 22px 22px; border-bottom: 1px solid var(--line); display: none; }
+    nav ul.open { display: flex; } .menu-btn { display: block; } .nav { position: relative; }
+    .hero { padding: 60px 0 40px; } section { padding: 68px 0; } .m-body { padding: 24px 22px 28px; } .m-body h3 { font-size: 2.1rem; }
+    .meta h3 { font-size: 1.6rem; } .track { font-size: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .track, .sticker, .tag b { animation: none; } .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="ribbon">Demo portfolio with sample content, built by <a href="https://n-core.in/" target="_blank" rel="noopener">Core Dynamics</a>. “Mira Lane” and all projects are fictional.</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Mira Lane home">Mira Lane<i>.</i></a>
+    <nav aria-label="Main">
+      <ul id="menu">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="cta">Let’s talk</a></li>
+      </ul>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="tag"><b></b> Available for freelance projects (sample)</div>
+      <h1>Designing things people <em>love</em> to use.</h1>
+      <p class="sub">I’m Mira, an independent product and brand designer. I help small teams turn rough ideas into clear, beautiful, working products.</p>
+      <div class="btns">
+        <a class="btn btn-solid" href="#work">See my work <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true"><div class="track">
+      <span>Brand identity</span><span>Web design</span><span>Product UI</span><span>Illustration</span><span>Motion</span><span>Packaging</span>
+      <span>Brand identity</span><span>Web design</span><span>Product UI</span><span>Illustration</span><span>Motion</span><span>Packaging</span>
+    </div></div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="head reveal"><div><div class="label">Selected work</div><h2>Recent projects</h2></div><p>Four sample projects. Click any card to open its case study.</p></div>
+      <div class="work">
+        <button class="proj reveal" data-p="0" aria-haspopup="dialog">
+          <div class="cover"><svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="640" height="440" fill="#ff6a4d"/><circle cx="470" cy="150" r="130" fill="#d6ff5c"/><circle cx="470" cy="150" r="70" fill="#ff6a4d"/><rect x="60" y="260" width="300" height="26" rx="13" fill="#1a0a06"/><rect x="60" y="306" width="210" height="26" rx="13" fill="#1a0a06" opacity=".7"/><rect x="60" y="352" width="140" height="26" rx="13" fill="#1a0a06" opacity=".4"/></svg></div>
+          <div class="meta"><div><h3>Sunday Coffee Co.</h3><small>Brand identity · 2025</small></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+        </button>
+        <button class="proj reveal" data-p="1" aria-haspopup="dialog">
+          <div class="cover"><svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="640" height="440" fill="#1d2a44"/><rect x="90" y="60" width="180" height="320" rx="30" fill="#0e1424"/><rect x="104" y="80" width="152" height="90" rx="16" fill="#7ec8ff"/><rect x="104" y="184" width="152" height="18" rx="9" fill="#33466d"/><rect x="104" y="214" width="110" height="18" rx="9" fill="#33466d"/><rect x="104" y="262" width="70" height="70" rx="18" fill="#d6ff5c"/><rect x="186" y="262" width="70" height="70" rx="18" fill="#ff6a4d"/><rect x="330" y="120" width="220" height="200" rx="26" fill="#27395e"/><path d="M350 280c30-70 60-10 90-50s50-50 90-70" stroke="#7ec8ff" stroke-width="8" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="meta"><div><h3>Pulse Fitness App</h3><small>Product UI · 2025</small></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+        </button>
+        <button class="proj reveal" data-p="2" aria-haspopup="dialog">
+          <div class="cover"><svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="640" height="440" fill="#e9e2d3"/><rect x="90" y="70" width="460" height="300" rx="16" fill="#fff"/><rect x="90" y="70" width="460" height="46" rx="16" fill="#14231c"/><circle cx="116" cy="93" r="6" fill="#ff6a4d"/><circle cx="138" cy="93" r="6" fill="#d6ff5c"/><circle cx="160" cy="93" r="6" fill="#7ec8ff"/><rect x="120" y="150" width="210" height="30" rx="8" fill="#14231c"/><rect x="120" y="196" width="160" height="14" rx="7" fill="#c8c2b2"/><rect x="120" y="222" width="190" height="14" rx="7" fill="#c8c2b2"/><rect x="120" y="262" width="110" height="38" rx="19" fill="#ff6a4d"/><rect x="360" y="150" width="160" height="170" rx="14" fill="#d6ff5c"/></svg></div>
+          <div class="meta"><div><h3>Greenroot Market</h3><small>Website design · 2024</small></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+        </button>
+        <button class="proj reveal" data-p="3" aria-haspopup="dialog">
+          <div class="cover"><svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="640" height="440" fill="#2a1d4a"/><circle cx="160" cy="220" r="150" fill="#ff6a4d" opacity=".9"/><circle cx="300" cy="220" r="150" fill="#7ec8ff" opacity=".85" style="mix-blend-mode:screen"/><circle cx="440" cy="220" r="150" fill="#d6ff5c" opacity=".8" style="mix-blend-mode:screen"/><circle cx="560" cy="120" r="46" fill="#fff" opacity=".9"/></svg></div>
+          <div class="meta"><div><h3>Orbit Music Festival</h3><small>Illustration &amp; motion · 2024</small></div><span class="go"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="background:var(--bg2)">
+    <div class="wrap about">
+      <div class="reveal">
+        <div class="label">About</div>
+        <h2>Clear thinking, careful craft.</h2>
+        <p style="margin-top:28px">I care about <b>simple ideas, executed well</b>. Good design isn’t decoration. It’s making something easy to understand and a pleasure to use.</p>
+        <p>This is a sample bio written for the demo. On a real portfolio, this is where your story, experience and approach go.</p>
+        <div class="skills"><span>Brand identity</span><span>UI / UX</span><span>Web design</span><span>Illustration</span><span>Prototyping</span><span>Design systems</span></div>
+      </div>
+      <div class="list reveal">
+        <div><b>Discover</b><span>Goals, audience, ideas</span></div>
+        <div><b>Design</b><span>Concepts and iteration</span></div>
+        <div><b>Deliver</b><span>Polished files, handover</span></div>
+        <div><b>Support</b><span>Tweaks after launch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="big reveal">
+        <svg class="sticker" viewBox="0 0 100 100" aria-hidden="true"></svg>
+        <h2>Have a project in mind?</h2>
+        <p>Tell me a little about it and I’ll get back to you with ideas. (Demo: this email is a placeholder.)</p>
+        <a class="btn" href="mailto:hello@example.com">hello@example.com <span class="arrow">→</span></a>
+        <div class="socials"><a href="#contact">Instagram</a><a href="#contact">Behance</a><a href="#contact">LinkedIn</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap foot"><span>© <span id="yr">2026</span> Mira Lane, a fictional designer for demonstration.</span><span>Website demo by <a href="https://n-core.in/" target="_blank" rel="noopener">Core Dynamics</a></span></div></footer>
+
+<dialog id="dlg" aria-labelledby="dTitle">
+  <button class="close" id="dClose" aria-label="Close project">×</button>
+  <div class="m-cover" id="dCover"></div>
+  <div class="m-body">
+    <div class="label" id="dKind"></div>
+    <h3 id="dTitle"></h3>
+    <p id="dText"></p>
+    <div class="facts"><div><small>Role</small><b id="dRole"></b></div><div><small>Tools</small><b id="dTools"></b></div><div><small>Year</small><b id="dYear"></b></div></div>
+    <p class="note">Sample case study. Fictional client and project, shown to demonstrate layout only.</p>
+  </div>
+</dialog>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var btn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+  btn.addEventListener('click', function () { var o = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+  menu.addEventListener('click', function (e) { if (e.target.tagName === 'A') { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
+
+  /* Project case studies (sample data) */
+  var P = [
+    { t: 'Sunday Coffee Co.', k: 'Brand identity', y: '2025', r: 'Brand designer', tools: 'Figma, Illustrator', x: 'A warm, playful identity for a fictional neighbourhood coffee brand: logo, colour palette, cups and signage designed to feel friendly and unmistakably “Sunday morning”.' },
+    { t: 'Pulse Fitness App', k: 'Product UI', y: '2025', r: 'Product designer', tools: 'Figma, Protopie', x: 'A sample mobile app concept that makes daily workouts feel simple. Clear progress views, quick logging and calm, high-contrast screens that work in a busy gym.' },
+    { t: 'Greenroot Market', k: 'Website design', y: '2024', r: 'Web designer', tools: 'Figma, HTML/CSS', x: 'A fresh, fast marketing site for an imaginary organic grocery: bold product photography areas, a simple shop-locator and clear calls to action on every page.' },
+    { t: 'Orbit Music Festival', k: 'Illustration & motion', y: '2024', r: 'Illustrator', tools: 'Illustrator, After Effects', x: 'Overlapping shapes and colours inspired by sound waves, used across posters, social animations and wristbands for a fictional music festival.' }
+  ];
+  var dlg = document.getElementById('dlg'), last = null;
+  function open(i) {
+    var p = P[i], src = document.querySelectorAll('.proj')[i].querySelector('svg').cloneNode(true);
+    document.getElementById('dCover').replaceChildren(src);
+    dKind.textContent = p.k; dTitle.textContent = p.t; dText.textContent = p.x; dRole.textContent = p.r; dTools.textContent = p.tools; dYear.textContent = p.y;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+  document.querySelectorAll('.proj').forEach(function (b) { b.addEventListener('click', function () { last = b; open(+b.dataset.p); }); });
+  function close() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); if (last) last.focus(); }
+  document.getElementById('dClose').addEventListener('click', close);
+  dlg.addEventListener('click', function (e) { var r = dlg.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) close(); });
+
+  /* Soft cursor glow (mouse only, skipped for reduced motion) */
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var g = document.querySelector('.glow'); document.body.classList.add('has-glow');
+    addEventListener('mousemove', function (e) { g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px'; }, { passive: true });
+  }
+
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }); }, { threshold: .1 });
+    els.forEach(function (e) { io.observe(e); });
+  } else els.forEach(function (e) { e.classList.add('in'); });
+</script>
+</body>
+</html>
